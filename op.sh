@@ -52,6 +52,21 @@ then
   APPLICATION=$(xdg-mime query default $FILE_MIME)
   # now run application
   gtk-launch $APPLICATION $1
+# set the default program for a ceratin file extension with .desktop application ($2) and file ($3) 
+elif [[ $1 == --set-default ]] && [[ $2 ]] && [[ $3 ]]
+then
+  if [[ -e /usr/share/applications/${2} ]]
+  then
+    if [[ -e $3 ]]
+    then
+      FILE_MIME=$(xdg-mime query filetype $3)
+      xdg-mime default $2 $FILE_MIME
+    else
+      echo The file $3 does not exist
+    fi
+  else
+    echo The file $2 is not a valid .desktop file. Please run \"\$ op.sh --desktop\" to find valid .desktop files
+  fi
 # run program($1) with file($2)
 elif [[ $1 ]] && [[ $2 ]]
 then

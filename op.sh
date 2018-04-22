@@ -6,7 +6,9 @@
 # otherwise shows help
 
 ## Prereqs:
-# ensure that screen is preinstalled on your system
+# ensure that 'screen' is preinstalled on your system
+# ensure that 'xdg-mime' is preinstalled on your system
+# ensure that 'gtk-launch' is preinstalled on your system
 
 ## For debugging purposes
 echo \$1: $1

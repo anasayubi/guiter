@@ -30,6 +30,10 @@ then
   echo op.sh -l : return all the detached sessions
   echo op.sh -h : return help
   echo Run any invalid command to output this help
+# show all the desktop files
+elif [[ $1 == --desktop ]]
+then
+  ls -la /usr/share/applications | less
 # output the default application of program($2)
 elif [[ $1 == -d ]] && [[ $2 ]]
 then

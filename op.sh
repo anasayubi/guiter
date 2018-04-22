@@ -40,7 +40,7 @@ then
     echo $APPLICATION
   fi
 # open file($1) with default application 
-elif [[ $1 ]] && [[ !$2 ]]
+elif [[ $1 ]] && [[ ! $2 ]]
 then 
   FILE_MIME=$(xdg-mime query filetype $1)
   APPLICATION=$(xdg-mime query default $FILE_MIME)

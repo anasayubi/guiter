@@ -5,17 +5,18 @@
 # op.sh -l -> lists the current screen sessions
 # otherwise shows help
 
+## Prereqs:
 # ensure that screen is preinstalled on your system
+
+## For debugging purposes
+echo \$1: $1
+echo \$2: $2
 
 BOLD=$(tput bold)
 NORMAL=$(tput sgr0)
 
-# run program($1) with file($2)
-if [[ $1 ]] && [[ $2 ]]
-then
-  screen -d -m $1 $2
 # list the current processes running background
-elif [[ $1 == -l ]]
+if [[ $1 == -l ]]
 then
   screen -ls
 # list help
@@ -31,15 +32,24 @@ then
 elif [[ $1 == -d ]] && [[ $2 ]]
 then
   FILE_MIME=$(xdg-mime query filetype $2)
-  echo $FILE_MIME
-  xdg-mime query default $FILE_MIME
+  APPLICATION=$(xdg-mime query default $FILE_MIME)
+  if [[ ! $APPLICATION ]]
+  then
+    echo No default application exists for the mimetype $FILE_MIME
+  else
+    echo $APPLICATION
+  fi
 # open file($1) with default application 
-elif [[ $1 ]]
+elif [[ $1 ]] && [[ !$2 ]]
 then 
   FILE_MIME=$(xdg-mime query filetype $1)
   APPLICATION=$(xdg-mime query default $FILE_MIME)
   # now run application
   gtk-launch $APPLICATION $1
+# run program($1) with file($2)
+elif [[ $1 ]] && [[ $2 ]]
+then
+  screen -d -m $1 $2
 # show help on invalid usage
 else
   echo ${BOLD}Incorrect usage of op.sh! 

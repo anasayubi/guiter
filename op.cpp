@@ -26,7 +26,8 @@ int main(int argc, char *argv[]){
 
     if (vm.count("list")) {
       // cout << desc << "\n";
-      cout << "list running" << endl;
+      //cout << "list running" << endl;
+      system("screen -ls");
       return 1;
     }
     // if(result.count("list") == 1)
